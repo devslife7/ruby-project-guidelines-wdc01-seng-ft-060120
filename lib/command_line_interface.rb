@@ -13,7 +13,7 @@ end
 def greet_user
         puts "Hello! Whats Your Name?"
         name = gets.chomp()
-        puts "Welcome, #{name}!"
+        puts "Welcome, #{name.capitalize}!"
 end 
 
 
@@ -44,14 +44,14 @@ end
 # end
 
 def user_level
-
     prompt = TTY::Prompt.new
-    input = prompt.select("Choose Your Level:", %w(1.Beginner 2.Intermediate 3.Advanced 4.Pro))
-
+    input = prompt.select("Choose Your Level:", %w(Beginner Intermediate Advanced Pro))
 end
 
-def get_workout(user)
+def user_workout
+    prompt = TTY::Prompt.new
+    input = prompt.select("What would you like to work on today:", %w(Arms Legs Chest Back))
+
     # gets workout for that user
-    ##if Level == beginner return beginner workout
-    ##if Level == 
+    # if Level == beginner return beginner workout
 end

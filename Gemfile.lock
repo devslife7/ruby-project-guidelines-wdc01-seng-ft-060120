@@ -149,7 +149,7 @@ DEPENDENCIES
   pry
   require_all
   sinatra-activerecord
-  sqlite3
+  sqlite3 (~> 1.4)
   tty
 
 BUNDLED WITH
