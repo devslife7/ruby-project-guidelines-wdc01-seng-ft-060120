@@ -9,13 +9,14 @@ welcome
 
 prompt = TTY::Prompt.new
 
-input = prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
+input = prompt.select("Choose your destiny?", %w(Login Register Help))
 
-puts input
-# if user_log_in == 1
+
+# puts input
+# if user_log_in == "1"
 #     log_in
 # end
 
 
-# level = user_level
-# assign_workout(level)
+level = user_level
+assign_workout(level)
