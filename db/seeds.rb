@@ -31,8 +31,14 @@ Workout.create(title:"Pro", list_of_exercises: "Bicep Curl, Squat, Deadlift, Run
 Workout.create(title:"Pro", list_of_exercises: "Bicep Curl, Squat, Deadlift, Running 500 meters, Bench Press", workout_area: "Back")
 
 Exercise.create(title: "Bicep Curl")
-Exercise.create(title: "Tricep Extension")
-Exercise.create(title: "Squats")
-Exercise.create(title: "Deadlift")
+Exercise.create(title: "Diamond Push up")
 Exercise.create(title: "Bench Press")
+Exercise.create(title: "Bicep Curl")
+Exercise.create(title: "Tricep Extension")
+
+Exercise.create(title: "Squats")
+Exercise.create(title: "Squats Jumps")
+Exercise.create(title: "High Knees")
+Exercise.create(title: "Side Lunges")
+Exercise.create(title: "Deadlift")
 Exercise.create(title: "Running 500 meters")
