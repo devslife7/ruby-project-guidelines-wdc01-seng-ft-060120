@@ -7,9 +7,11 @@ require 'tty-prompt'
 
 welcome
 
+greet_user
+
 prompt = TTY::Prompt.new
 
-input = prompt.select("Choose your destiny?", %w(Login Register Help))
+##input = prompt.select("Whats Your Name?", %w(Login Register Help))
 
 
 # puts input

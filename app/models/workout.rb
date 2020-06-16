@@ -6,5 +6,10 @@ class Workout < ActiveRecord::Base
 
     def workouts(levels)
         # call table info
+
+        
+
     end
+
+
 end

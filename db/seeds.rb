@@ -25,7 +25,7 @@ Exercise.create(title: "Deadlift")
 Exercise.create(title: "Bench Press")
 Exercise.create(title: "Running 500 meters")
 
-WorkoutExercise.create(workout_id: "1")
+##WorkoutExercise.create(workout_id: "1")
 
 
 
