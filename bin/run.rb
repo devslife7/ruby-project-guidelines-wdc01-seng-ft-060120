@@ -5,10 +5,7 @@ require_relative '../lib/assignments'
 
 welcome
 
-num = user_log_in
-puts num
-if num == 1
-    puts "enters the if statement"
+if user_log_in == 1
     log_in
 end
 
