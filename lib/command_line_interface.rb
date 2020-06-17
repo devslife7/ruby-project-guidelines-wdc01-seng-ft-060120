@@ -3,15 +3,18 @@ require 'open-uri'
 require 'net/http'
 require 'json'
 
+class Interface 
+    attr_reader :prompt
+    
+    def initialize()
+        @prompt = TTY::Prompt.new(active_color: :magenta)
+    end
+end
 
 def welcome
-    puts "\n\n\n\n\n\n"
-    puts ",--.   ,--.       ,--.                                    ,--.             ,------.,--.,--------.,--.,------.  ,-----. ,--.  ,--.   "
-    puts "|  |   |  | ,---. |  | ,---. ,---. ,--,--,--. ,---.     ,-'  '-. ,---.     |  .---'|  |'--.  .--'|  ||  .--. ''  .-.  '|  ,'.|  |   "
-    puts "|  |.'.|  || .-. :|  || .--'| .-. ||        || .-. :    '-.  .-'| .-. |    |  `--, |  |   |  |   |  ||  '--'.'|  | |  ||  |' '  |   "
-    puts "|   ,'.   |\   --.|  |\ `--.' '-' '|  |  |  |\   --.      |  |  ' '-' '    |  |`   |  |   |  |   |  ||  |\  \ '  '-'  '|  | `   |   "
-    puts "'--'   '--' `----'`--' `---' `---' `--`--`--' `----'      `--'   `---'     `--'    `--'   `--'   `--'`--' '--' `-----' `--'  `--'   "
-    puts "\n\n\n"
+    pastel = Pastel.new
+    font = TTY::Font.new(:standard)
+    puts pastel.cyan(font.write("Welcome To Fit Iron")) 
 end
     
 def greet_user
@@ -29,10 +32,15 @@ def login_or_setup
     else
         puts "Welcome new user"
         puts "Lets add you to our database"
-        sleep(3)
+        bar = TTY::ProgressBar.new("Saving User ... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
         user = User.create(username: input)
         puts "Successfully added #{user.username} to User table"
     end
+    
     # user = User.find_or_create_by(username: answer)
 end
 
