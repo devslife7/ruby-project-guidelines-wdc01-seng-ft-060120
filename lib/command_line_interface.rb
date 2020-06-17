@@ -3,6 +3,7 @@ require 'open-uri'
 require 'net/http'
 require 'json'
 
+
 def welcome
     puts "\n\n\n\n\n\n"
     puts ",--.   ,--.       ,--.                                    ,--.             ,------.,--.,--------.,--.,------.  ,-----. ,--.  ,--.   "
@@ -141,6 +142,22 @@ def api
 end
 
 def menu
+    pastel = Pastel.new
+    puts pastel.cyan("Hello World")
+    font = TTY::Font.new(:starwars)
+    puts pastel.cyan(font.write("Welcome to Fitiron"))
+    spinner = TTY::Spinner.new("[:spinner] Scribbling...", format: :pulse_2)
+    spinner.auto_spin
+    sleep(2)
+    spinner.stop('Thanks for your using Fitiron!')
+    bar = TTY::ProgressBar.new("Saving changes... [:bar]", total: 30)
+    30.times do 
+        sleep(0.1)
+        bar.advance(1)
+    end
+
+
+
     prompt = TTY::Prompt.new
     input = prompt.select("Main menu:", %w(get_workout add_exercise create_workout look_week_schedule motivational_quote exit))
 
