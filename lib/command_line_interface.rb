@@ -123,7 +123,7 @@ def create_workout
     puts "We have succesfully added #{user_exercises.length} new exercise(s) to #{user_workout} << #{user_exercises.join(", ")}"
 end
 
-def api
+def random_quote
     url = "https://type.fit/api/quotes"
     # url = "https://www.bulkhackers.com/wp-json/bulk-hackers/get-quotes"
     uri = URI.parse(url)
@@ -135,30 +135,40 @@ def api
 
     random_number = rand(1600)
 
-    puts "\n\n\n                     \"#{json[random_number]["text"]}\"\n\n"
-    puts "                               Author: #{json[random_number]["author"]}\n\n\n\n\n\n"
-
+    puts "\n\n\n\t\t\t\"#{json[random_number]["text"]}\"\n\n"
+    puts "\t\t\t\tAuthor: #{json[random_number]["author"]}\n\n\n\n\n\n"
 end
 
 def menu
+    prompt_array = ["Get Workout\n", "Add Workout\n", "Add Exercise\n", "Week Schedule\n", "Motivational Quote\n", "Exit\n"]
     prompt = TTY::Prompt.new
-    input = prompt.select("Main menu:", %w(get_workout add_exercise create_workout look_week_schedule motivational_quote exit))
+    input = prompt.select("  Main menu:\n", prompt_array) # %w(Get_Workout add_exercise create_workout look_week_schedule motivational_quote exit))
 
     case input
-    when "get_workout"
+    when "Get Workout\n"
         workout = user_workout
         recommend_exercises(workout)
-    when "add_exercise"
+        return_or_exit
+    when "Add Exercise\n"
         add_exercise
-    when "create_workout"
+        return_or_exit
+    when "Add Workout\n"
         create_workout
-    when "look_week_schedule"
+        return_or_exit
+    when "Week Schedule\n"
         puts "prints out week"
-    when "motivational_quote"
-        api
-    when "exit"
-        puts "bye bye!"
-    else
-        "entered else statement"
+        return_or_exit
+    when "Motivational Quote\n"
+        random_quote
+        return_or_exit
+    when "Exit\n"
+        puts "Bye Bye!"
     end
+end
+
+def return_or_exit
+    prompt = TTY::Prompt.new
+    input = prompt.select("\n", ["Return to Main Menu\n", "Exit\n"])
+    (input == "\n\nReturn to Main Menu\n")? menu : nil
+    puts "Bye Bye!"
 end
