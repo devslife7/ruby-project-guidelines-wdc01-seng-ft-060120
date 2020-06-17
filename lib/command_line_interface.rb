@@ -70,8 +70,10 @@ end
 
 # prompts and returns the users selected workout
 def user_workout
+
+    prompt_array = ["Arms\n", "Legs\n", "Chest\n", "Back\n"]
     prompt = TTY::Prompt.new
-    input = prompt.select("What would you like to work on today:", %w(Arms Legs Chest Back))
+    input = prompt.select(" What would you like to work on today:\n", prompt_array)
 
     # gets workout for that user
     # if Level == beginner return beginner workout
@@ -186,7 +188,7 @@ def menu
     when "Exit\n"
         puts " ----------------------------------------------"
         puts " Thank you for using Fitiron have a greate day!"
-        puts " ----------------------------------------------"
+        puts " ----------------------------------------------\n\n"
     end
 end
 
@@ -196,5 +198,5 @@ def return_or_exit
     (input == "Return to Main Menu")? menu : nil
     puts " ----------------------------------------------"
     puts " Thank you for using Fitiron have a greate day!"
-    puts " ----------------------------------------------"
+    puts " ----------------------------------------------\n\n"
 end
