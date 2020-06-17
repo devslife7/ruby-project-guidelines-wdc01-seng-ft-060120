@@ -32,6 +32,9 @@ ex8 = Exercise.create(title: "High Knees")
 ex9 = Exercise.create(title: "Side Lunges")
 ex10 = Exercise.create(title: "Deadlift")
 ex11 = Exercise.create(title: "800 meter run")
+ex12 = Exercise.create(title: "Barbell rolls")
+ex13 = Exercise.create(title: "Lat pull downs")
+
 
 
 Workoutexercise.create(workout_id: arms.id, exercise_id: ex1.id)
@@ -39,14 +42,15 @@ Workoutexercise.create(workout_id: arms.id, exercise_id: ex2.id)
 Workoutexercise.create(workout_id: arms.id, exercise_id: ex3.id)
 Workoutexercise.create(workout_id: arms.id, exercise_id: ex4.id)
 Workoutexercise.create(workout_id: arms.id, exercise_id: ex5.id)
+Workoutexercise.create(workout_id: arms.id, exercise_id: ex12.id)
 
 Workoutexercise.create(workout_id: chest.id, exercise_id: ex2.id)
 Workoutexercise.create(workout_id: chest.id, exercise_id: ex3.id)
 Workoutexercise.create(workout_id: chest.id, exercise_id: ex4.id)
 
-Workoutexercise.create(workout_id: back.id, exercise_id: ex2.id)
 Workoutexercise.create(workout_id: back.id, exercise_id: ex4.id)
-Workoutexercise.create(workout_id: back.id, exercise_id: ex5.id)
+Workoutexercise.create(workout_id: back.id, exercise_id: ex12.id)
+Workoutexercise.create(workout_id: back.id, exercise_id: ex13.id)
 
 Workoutexercise.create(workout_id: legs.id, exercise_id: ex6.id)
 Workoutexercise.create(workout_id: legs.id, exercise_id: ex7.id)

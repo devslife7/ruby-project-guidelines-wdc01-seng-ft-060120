@@ -1,4 +1,7 @@
 require 'tty-prompt'
+require 'open-uri'
+require 'net/http'
+require 'json'
 
 def welcome
     puts "\n\n\n\n\n\n"
@@ -118,4 +121,44 @@ def create_workout
 
     puts "Success!"
     puts "We have succesfully added #{user_exercises.length} new exercise(s) to #{user_workout} << #{user_exercises.join(", ")}"
+end
+
+def api
+    url = "https://type.fit/api/quotes"
+    # url = "https://www.bulkhackers.com/wp-json/bulk-hackers/get-quotes"
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    response.body
+    json = JSON.parse(response.body)
+    
+    # binding.pry
+
+    random_number = rand(1600)
+
+    puts "\n\n\n                     \"#{json[random_number]["text"]}\"\n\n"
+    puts "                               Author: #{json[random_number]["author"]}\n\n\n\n\n\n"
+
+end
+
+def menu
+    prompt = TTY::Prompt.new
+    input = prompt.select("Main menu:", %w(get_workout add_exercise create_workout look_week_schedule motivational_quote exit))
+
+    case input
+    when "get_workout"
+        workout = user_workout
+        recommend_exercises(workout)
+    when "add_exercise"
+        add_exercise
+    when "create_workout"
+        create_workout
+    when "look_week_schedule"
+        puts "prints out week"
+    when "motivational_quote"
+        api
+    when "exit"
+        puts "bye bye!"
+    else
+        "entered else statement"
+    end
 end
