@@ -5,6 +5,7 @@ class CreateWorkoutexercise < ActiveRecord::Migration[6.0]
       t.integer :exercise_id
       t.integer :sets
       t.integer :reps
+      t.string :dificulty_level
     end
   end
 end

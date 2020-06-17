@@ -1,15 +1,6 @@
 class Workout < ActiveRecord::Base
-    has_many :user_workouts
-    has_many :users, through: :user_workouts
-    has_many :workout_exercises
-    has_many :exercises, through: :workout_exercises
-
-    def workouts(levels)
-        # call table info
-
-        
-
-    end
-
-
+    has_many :userworkouts
+    has_many :users, through: :userworkouts
+    has_many :workoutexercises
+    has_many :exercises, through: :workoutexercises
 end
