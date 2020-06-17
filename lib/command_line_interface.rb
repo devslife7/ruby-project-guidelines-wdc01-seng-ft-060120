@@ -14,18 +14,25 @@ def welcome
 end
     
 def greet_user
-        puts "Hello! Whats Your Name?"
-        name = gets.chomp()
-        puts "Welcome, #{name.capitalize}!"
+    puts "Hello! Whats Your Name?"
+    name = gets.chomp()
+    puts "Welcome, #{name.capitalize}!"
 end 
 
 def login_or_setup
-    puts "What's you name to sign up or login?"
-    answer = gets.chomp.capitalize
+    puts "What's you name?"
+    input = gets.chomp.capitalize
 
-    user = User.find_or_create_by(username: answer)
-    sleep(1)
-    puts "Hello, #{user.username.capitalize}!"
+    if User.find_by(username: input) != nil
+        puts "Welcome back #{input}"
+    else
+        puts "Welcome new user"
+        puts "Lets add you to our database"
+        sleep(3)
+        user = User.create(username: input)
+        puts "Successfully added #{user.username} to User table"
+    end
+    # user = User.find_or_create_by(username: answer)
 end
 
 # def user_log_in
@@ -142,7 +149,7 @@ end
 def menu
     prompt_array = ["Get Workout\n", "Add Workout\n", "Add Exercise\n", "Week Schedule\n", "Motivational Quote\n", "Exit\n"]
     prompt = TTY::Prompt.new
-    input = prompt.select("  Main menu:\n", prompt_array) # %w(Get_Workout add_exercise create_workout look_week_schedule motivational_quote exit))
+    input = prompt.select("\n\n  Main menu:\n", prompt_array) # %w(Get_Workout add_exercise create_workout look_week_schedule motivational_quote exit))
 
     case input
     when "Get Workout\n"
