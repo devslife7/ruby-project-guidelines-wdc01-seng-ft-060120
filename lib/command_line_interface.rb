@@ -138,35 +138,33 @@ def random_quote
     response = Net::HTTP.get_response(uri)
     response.body
     json = JSON.parse(response.body)
-    
-    # binding.pry
 
     random_number = rand(1600)
 
     puts "\n\n\n\t\t\t\"#{json[random_number]["text"]}\"\n\n"
-    puts "\t\t\t\tAuthor: #{json[random_number]["author"]}\n\n\n\n\n\n"
+    puts "\t\t\t\t- #{json[random_number]["author"]}\n\n\n\n\n\n"
 end
 
 def menu
-    pastel = Pastel.new
-    puts pastel.cyan("Hello World")
-    font = TTY::Font.new(:starwars)
-    puts pastel.cyan(font.write("Welcome to Fitiron"))
-    spinner = TTY::Spinner.new("[:spinner] Scribbling...", format: :pulse_2)
-    spinner.auto_spin
-    sleep(2)
-    spinner.stop('Thanks for your using Fitiron!')
-    bar = TTY::ProgressBar.new("Saving changes... [:bar]", total: 30)
-    30.times do 
-        sleep(0.1)
-        bar.advance(1)
-    end
+    # pastel = Pastel.new
+    # puts pastel.cyan("Hello World")
+    # font = TTY::Font.new(:starwars)
+    # puts pastel.cyan(font.write("Welcome to Fitiron"))
+    # spinner = TTY::Spinner.new("[:spinner] Scribbling...", format: :pulse_2)
+    # spinner.auto_spin
+    # sleep(2)
+    # spinner.stop('Thanks for your using Fitiron!')
+    # bar = TTY::ProgressBar.new("Saving changes... [:bar]", total: 30)
+    # 30.times do 
+    #     sleep(0.1)
+    #     bar.advance(1)
+    # end
 
 
 
     prompt_array = ["Get Workout\n", "Add Workout\n", "Add Exercise\n", "Week Schedule\n", "Motivational Quote\n", "Exit\n"]
     prompt = TTY::Prompt.new
-    input = prompt.select("\n\n  Main menu:\n", prompt_array) # %w(Get_Workout add_exercise create_workout look_week_schedule motivational_quote exit))
+    input = prompt.select("\n\n Main menu:\n", prompt_array) # %w(Get_Workout add_exercise create_workout look_week_schedule motivational_quote exit))
 
     case input
     when "Get Workout\n"
@@ -186,13 +184,17 @@ def menu
         random_quote
         return_or_exit
     when "Exit\n"
-        puts "Bye Bye!"
+        puts " ----------------------------------------------"
+        puts " Thank you for using Fitiron have a greate day!"
+        puts " ----------------------------------------------"
     end
 end
 
 def return_or_exit
     prompt = TTY::Prompt.new
-    input = prompt.select("\n", ["Return to Main Menu\n", "Exit\n"])
-    (input == "\n\nReturn to Main Menu\n")? menu : nil
-    puts "Bye Bye!"
+    input = prompt.select("\n", ["Return to Main Menu", "Exit\n"])
+    (input == "Return to Main Menu")? menu : nil
+    puts " ----------------------------------------------"
+    puts " Thank you for using Fitiron have a greate day!"
+    puts " ----------------------------------------------"
 end
