@@ -147,12 +147,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  pastel
   pry
   rake
   require_all
   sinatra-activerecord
   sqlite3 (~> 1.4)
   tty
+  tty-color
+  tty-font
+  tty-progressbar
+  tty-spinner
 
 BUNDLED WITH
    1.16.1
