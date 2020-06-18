@@ -92,6 +92,11 @@ def recommend_exercises(user_workout)
     list = workout.exercises.collect do |exercise|
         exercise.title
     end
+    bar = TTY::ProgressBar.new("Retrieving Workout ... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
 
     puts "Your recommended workouts are: #{list.join(', ')}"
 end
@@ -105,6 +110,11 @@ def add_exercise
     puts "Add exercises separated by commas: (exercise1, exercise2, exercise3)"
     new_exercises = gets.chomp()
     new_exercises = new_exercises.split(", ")
+    bar = TTY::ProgressBar.new("Saving Exercises... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
     add_user_exercise(workouts_to_edit, new_exercises)
 end
 
@@ -128,7 +138,11 @@ def create_workout
     puts "What exercises would #{user_workout} workout have: (exercise1, exercise2, exercise3, exercise4)"
     user_exercises = gets.chomp
     user_exercises = user_exercises.split(", ")
-
+    bar = TTY::ProgressBar.new("Saving Workout... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
     created_workout = Workout.create(title: user_workout)
 
     user_exercises.each do |exercise|
@@ -151,6 +165,11 @@ def random_quote
     # binding.pry
 
     random_number = rand(1600)
+    bar = TTY::ProgressBar.new("Your life matters!... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
 
     puts "\n\n\n\t\t\t\"#{json[random_number]["text"]}\"\n\n"
     puts "\t\t\t\tAuthor: #{json[random_number]["author"]}\n\n\n\n\n\n"

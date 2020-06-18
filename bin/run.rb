@@ -5,7 +5,7 @@ welcome
 login_or_setup
 # greet_user
 
-# menu
+ menu
 
 # api
 
