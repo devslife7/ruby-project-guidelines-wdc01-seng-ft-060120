@@ -16,16 +16,11 @@ def welcome
     font = TTY::Font.new(:standard)
     puts pastel.cyan(font.write("Welcome To Fit Iron")) 
 end
-    
-def greet_user
-    puts "Hello! Whats Your Name?"
-    name = gets.chomp()
-    puts "Welcome, #{name.capitalize}!"
-end 
 
 def login_or_setup
     puts "What's you name?"
     input = gets.chomp.capitalize
+    user_exits?(input)
 
     if User.find_by(username: input) != nil
         puts "Welcome back #{input}"
@@ -34,14 +29,12 @@ def login_or_setup
         puts "Lets add you to our database"
         bar = TTY::ProgressBar.new("Saving User ... [:bar]", total: 30)
         30.times do
-        sleep(0.1)
-        bar.advance(1)
+            sleep(0.1)
+            bar.advance(1)
         end
         user = User.create(username: input)
         puts "Successfully added #{user.username} to User table"
     end
-    
-    # user = User.find_or_create_by(username: answer)
 end
 
 # def user_log_in
@@ -78,13 +71,9 @@ end
 
 # prompts and returns the users selected workout
 def user_workout
-
     prompt_array = ["Arms\n", "Legs\n", "Chest\n", "Back\n"]
     prompt = TTY::Prompt.new
-    input = prompt.select(" What would you like to work on today:\n", prompt_array)
-
-    # gets workout for that user
-    # if Level == beginner return beginner workout
+    prompt.select(" What would you like to work on today:\n", prompt_array).chop
 end
 
 def recommend_exercises(user_workout)
@@ -98,13 +87,15 @@ def recommend_exercises(user_workout)
 end
 
 def add_exercise
+    workout_title_column_values = Workout.select(:title).map(&:title).uniq
+       
     prompt = TTY::Prompt.new
-
-    choices = %w(Arms Chest Back Legs)
-    workouts_to_edit = prompt.multi_select("Select workouts to add exercise", choices)
+    workouts_to_edit = prompt.multi_select("Select workouts to add exercise", workout_title_column_values)
     
     puts "Add exercises separated by commas: (exercise1, exercise2, exercise3)"
     new_exercises = gets.chomp()
+    user_exits?(new_exercises)
+    
     new_exercises = new_exercises.split(", ")
     add_user_exercise(workouts_to_edit, new_exercises)
 end
@@ -126,8 +117,10 @@ end
 def create_workout
     puts "Name the workout you would like to create:"
     user_workout = gets.chomp.capitalize
+    user_exits?(user_workout)
     puts "What exercises would #{user_workout} workout have: (exercise1, exercise2, exercise3, exercise4)"
     user_exercises = gets.chomp
+    user_exits?(user_exercises)
     user_exercises = user_exercises.split(", ")
 
     created_workout = Workout.create(title: user_workout)
@@ -151,8 +144,25 @@ def random_quote
 
     random_number = rand(1600)
 
+    if json[random_number]["author"] == nil
+        json[random_number]["author"] = "Someone Said This"
+    end
+
     puts "\n\n\n\t\t\t\"#{json[random_number]["text"]}\"\n\n"
-    puts "\t\t\t\t- #{json[random_number]["author"]}\n\n\n\n\n\n"
+    puts "\t\t\t\t- #{json[random_number]["author"]}\n\n\n\n"
+end
+
+def browse_workouts_and_exercises
+    prompt = TTY::Prompt.new
+    input = prompt.select("\n\n Browse\n", ["Workouts\n", "Exercises\n"])
+    input = input.chop
+    if input == "Workouts"
+        puts " Current list of Workouts:\n\n"
+        puts "  #{Workout.select(:title).map(&:title).uniq.join(", ")}"
+    elsif input == "Exercises"
+        puts " Current list of Exercises:\n\n"
+        puts "  #{Exercise.select(:title).map(&:title).uniq.join(", ")}"
+    end
 end
 
 def menu
@@ -170,41 +180,54 @@ def menu
     #     bar.advance(1)
     # end
 
-
-
-    prompt_array = ["Get Workout\n", "Add Workout\n", "Add Exercise\n", "Week Schedule\n", "Motivational Quote\n", "Exit\n"]
+    prompt_array = ["Get Workout\n", "Add Exercise\n", "Add Workout\n", "Browse Data\n", "Week Schedule\n", "Motivational Quote\n", "Exit\n"]
     prompt = TTY::Prompt.new
     input = prompt.select("\n\n Main menu:\n", prompt_array) # %w(Get_Workout add_exercise create_workout look_week_schedule motivational_quote exit))
 
-    case input
-    when "Get Workout\n"
+    case input.chop
+    when "Get Workout"
         workout = user_workout
         recommend_exercises(workout)
         return_or_exit
-    when "Add Exercise\n"
+    when "Add Exercise"
         add_exercise
         return_or_exit
-    when "Add Workout\n"
+    when "Add Workout"
         create_workout
         return_or_exit
-    when "Week Schedule\n"
+    when "Week Schedule"
         puts "prints out week"
         return_or_exit
-    when "Motivational Quote\n"
+    when "Motivational Quote"
         random_quote
         return_or_exit
-    when "Exit\n"
-        puts " ----------------------------------------------"
-        puts " Thank you for using Fitiron have a greate day!"
-        puts " ----------------------------------------------\n\n"
+    when "Browse Data"
+        browse_workouts_and_exercises
+        return_or_exit
+    when "Exit"
+        exit_message
     end
 end
 
 def return_or_exit
     prompt = TTY::Prompt.new
     input = prompt.select("\n", ["Return to Main Menu", "Exit\n"])
-    (input == "Return to Main Menu")? menu : nil
-    puts " ----------------------------------------------"
+    if input == "Return to Main Menu"
+        menu 
+    elsif input == "Exit\n"
+        exit_message
+    end
+end
+
+def user_exits?(command)
+    if command.downcase == "exit"
+        exit_message    
+        Kernel.exit
+    end
+end
+
+def exit_message
+    puts "\n ----------------------------------------------"
     puts " Thank you for using Fitiron have a greate day!"
     puts " ----------------------------------------------\n\n"
 end
