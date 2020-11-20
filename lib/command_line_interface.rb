@@ -199,13 +199,12 @@ class Fitiron_app
     end
 
     def menu
-        print "\n\nCurrent user: #{@user.username}"
+        print "\n\nCurrent user: #{@user.username}\n"
 
         prompt_array = ["Get Workout\n", "Add Exercise\n", "Add Workout\n", "Browse Data\n", "Motivational Quote\n", "Log Out\n", "Exit\n"]
         prompt = TTY::Prompt.new
-        input = prompt.select("\n Main menu:\n", prompt_array) 
+        input = prompt.select(" Main menu:\n", prompt_array) 
 
- 
         case input.chop
         when "Get Workout"
             workout = user_workout
@@ -252,5 +251,4 @@ class Fitiron_app
         puts " Thank you for using Fitiron have a great day!"
         puts " ----------------------------------------------\n\n"
     end
-
 end
