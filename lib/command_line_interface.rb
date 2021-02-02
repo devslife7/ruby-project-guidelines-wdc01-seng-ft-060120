@@ -73,6 +73,11 @@ class Fitiron_app
 
         puts " Your recommended workouts are: #{list.join(', ')}"
     end
+    bar = TTY::ProgressBar.new("Retrieving Workout ... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
 
     def add_exercise
         workout_title_column_values = Workout.select(:title).map(&:title).uniq
@@ -102,10 +107,26 @@ class Fitiron_app
             end
         end
 
+<<<<<<< HEAD
         puts " Success!"
         puts " We have succesfully added #{new_exercises.join(", ")}."
         puts " to the following workout(s): #{workouts_to_edit.join(", ")}"
     end
+=======
+    choices = %w(Arms Chest Back Legs)
+    workouts_to_edit = prompt.multi_select("Select workouts to add exercise", choices)
+    
+    puts "Add exercises separated by commas: (exercise1, exercise2, exercise3)"
+    new_exercises = gets.chomp()
+    new_exercises = new_exercises.split(", ")
+    bar = TTY::ProgressBar.new("Saving Exercises... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
+    add_user_exercise(workouts_to_edit, new_exercises)
+end
+>>>>>>> 1e4f4ddf7eca762ddd2b069ff002aec514a0aff0
 
     def add_workout
         puts " Name the workout you would like to create:"
@@ -131,6 +152,7 @@ class Fitiron_app
         puts " We have succesfully added #{user_exercises.length} new exercise(s) to #{user_workout} << #{user_exercises.join(", ")}"
     end
 
+<<<<<<< HEAD
     def random_quote
         url = "https://type.fit/api/quotes"
         uri = URI.parse(url)
@@ -139,6 +161,20 @@ class Fitiron_app
         json = JSON.parse(response.body)
 
         random_number = rand(1600)
+=======
+def create_workout
+    puts "Name the workout you would like to create:"
+    user_workout = gets.chomp.capitalize
+    puts "What exercises would #{user_workout} workout have: (exercise1, exercise2, exercise3, exercise4)"
+    user_exercises = gets.chomp
+    user_exercises = user_exercises.split(", ")
+    bar = TTY::ProgressBar.new("Saving Workout... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
+    created_workout = Workout.create(title: user_workout)
+>>>>>>> 1e4f4ddf7eca762ddd2b069ff002aec514a0aff0
 
         if json[random_number]["author"] == nil
             json[random_number]["author"] = "Someone Said This"
@@ -198,6 +234,7 @@ class Fitiron_app
         end
     end
 
+<<<<<<< HEAD
     def menu
         print "\n\nCurrent user: #{@user.username}\n"
 
@@ -228,6 +265,14 @@ class Fitiron_app
             exit_message
         end
     end
+=======
+    random_number = rand(1600)
+    bar = TTY::ProgressBar.new("Your life matters!... [:bar]", total: 30)
+        30.times do
+        sleep(0.1)
+        bar.advance(1)
+        end
+>>>>>>> 1e4f4ddf7eca762ddd2b069ff002aec514a0aff0
 
     def return_or_exit
         prompt = TTY::Prompt.new
